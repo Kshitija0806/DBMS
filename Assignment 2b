@@ -251,4 +251,28 @@ ERROR 1054 (42S22): Unknown column 'Pname' in 'field list'
 mysql> select  Plocation, Pcost from Project where Pyear in ('2026', '2025', '2065');
 Empty set (0.00 sec)
 
+mysql> mysql> create view display as select Dept_id,  fname, designation from Employee;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * display;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'display' at line 1
+mysql> select * from  display;
++---------+----------+-------------+
+| Dept_id | fname    | designation |
++---------+----------+-------------+
+|       1 | Kshitija | HR          |
+|       3 | Hema     | Developer   |
+|       1 | Girija   | Intern      |
+|       2 | Piyusha  | Manager     |
+|       3 | Amar     | Tester      |
+|       2 | Ram      | Developer   |
+|       1 | Harry    | Intern      |
+|       3 | Purva    | Intern      |
+|       2 | Nikita   | Intern      |
+|       1 | Sam      | Developer   |
++---------+----------+-------------+
+10 rows in set (0.00 sec)
+
 mysql> 
+
+
