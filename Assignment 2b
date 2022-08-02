@@ -196,4 +196,59 @@ mysql> select * from Employee where Dept_id in ('1' , '2') and (fname like 'p%' 
 +--------+---------+---------+-------+-------------+--------+------------+
 2 rows in set (0.00 sec)
 
+mysql> delete Dept where dlocation='Mumbai';
+delete Dept where dlocation='Mumbai';
+^C
+mysql> select * Project where Plocation='Pune';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Project where Plocation='Pune'' at line 1
+mysql> select * from Project where Pcost between '1000000' and '5000000';
+Empty set (0.00 sec)
+
+mysql> select * from Project where Pcost between '100000' and '500000';
++---------+---------+-----------+--------+-------+
+| Proj_id | Dept_id | Plocation | Pcost  | Pyear |
++---------+---------+-----------+--------+-------+
+|       1 |       1 | Pune      | 110000 |  2004 |
+|       3 |       1 | Chennai   | 240000 |  2007 |
++---------+---------+-----------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select max(Pcost) as LargestCost from Project;
++-------------+
+| LargestCost |
++-------------+
+|      560000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Pcost) as AverageCost from Project;
++-------------+
+| AverageCost |
++-------------+
+| 303333.3333 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee order by Emp_id desc, lname desc, fname desc;
++--------+---------+----------+-------+-------------+--------+------------+
+| Emp_id | Dept_id | fname    | lname | designation | salary | joindate   |
++--------+---------+----------+-------+-------------+--------+------------+
+|     10 |       1 | Sam      | MNH   | Developer   |  35000 | 0000-00-00 |
+|      9 |       2 | Nikita   | LJK   | Intern      |  15000 | 0000-00-00 |
+|      8 |       3 | Purva    | UHK   | Intern      |  45000 | 0000-00-00 |
+|      7 |       1 | Harry    | AGK   | Intern      |  45000 | 0000-00-00 |
+|      6 |       2 | Ram      | AHK   | Developer   |  25000 | 0000-00-00 |
+|      5 |       3 | Amar     | NMG   | Tester      |  35000 | 0000-00-00 |
+|      4 |       2 | Piyusha  | MNP   | Manager     |  35000 | 0000-00-00 |
+|      3 |       1 | Girija   | PQR   | Intern      |  10000 | 0000-00-00 |
+|      2 |       3 | Hema     | ABC   | Developer   |  20000 | 0000-00-00 |
+|      1 |       1 | Kshitija | XYX   | HR          |  50000 | 0000-00-00 |
++--------+---------+----------+-------+-------------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select Pname, Plocation, Pcost from Project where Pyear in ('2026', '2025', '2065');
+ERROR 1054 (42S22): Unknown column 'Pname' in 'field list'
+mysql> select  Plocation, Pcost from Project where Pyear in ('2026', '2025', '2065');
+Empty set (0.00 sec)
+
 mysql> 
