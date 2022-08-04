@@ -1,0 +1,34 @@
+ 
+mysql> select * from Employee natural join Dept;
++---------+--------+----------+-------+-------------+--------+------------+-------+-----------+
+| Dept_id | Emp_id | fname    | lname | designation | salary | joindate   | dname | dlocation |
++---------+--------+----------+-------+-------------+--------+------------+-------+-----------+
+|       1 |      1 | Kshitija | XYX   | HR          |  50000 | 2015-01-01 | Comp  | Loc1      |
+|       3 |      2 | Hema     | ABC   | Developer   |  20000 | 2014-01-01 | Entc  | Loc3      |
+|       1 |      3 | Girija   | PQR   | Intern      |  10000 | 2019-01-01 | Comp  | Loc1      |
+|       2 |      4 | Piyusha  | MNP   | Manager     |  35000 | 2010-01-01 | It    | Loc2      |
+|       3 |      5 | Amar     | NMG   | Tester      |  35000 | 2011-01-01 | Entc  | Loc3      |
+|       2 |      6 | Ram      | AHK   | Developer   |  25000 | 2020-01-01 | It    | Loc2      |
+|       1 |      7 | Harry    | AGK   | Intern      |  45000 | 2021-01-01 | Comp  | Loc1      |
+|       3 |      8 | Purva    | UHK   | Intern      |  45000 | 2016-01-01 | Entc  | Loc3      |
+|       2 |      9 | Nikita   | LJK   | Intern      |  15000 | 2006-01-01 | It    | Loc2      |
+|       1 |     10 | Sam      | MNH   | Developer   |  35000 | 2003-01-01 | Comp  | Loc1      |
++---------+--------+----------+-------+-------------+--------+------------+-------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select fname, designation, dlocation, joindate from Employee inner join Dept on Employee.Dept_id=Dept.Dept_id;
++----------+-------------+-----------+------------+
+| fname    | designation | dlocation | joindate   |
++----------+-------------+-----------+------------+
+| Kshitija | HR          | Loc1      | 2015-01-01 |
+| Hema     | Developer   | Loc3      | 2014-01-01 |
+| Girija   | Intern      | Loc1      | 2019-01-01 |
+| Piyusha  | Manager     | Loc2      | 2010-01-01 |
+| Amar     | Tester      | Loc3      | 2011-01-01 |
+| Ram      | Developer   | Loc2      | 2020-01-01 |
+| Harry    | Intern      | Loc1      | 2021-01-01 |
+| Purva    | Intern      | Loc3      | 2016-01-01 |
+| Nikita   | Intern      | Loc2      | 2006-01-01 |
+| Sam      | Developer   | Loc1      | 2003-01-01 |
++----------+-------------+-----------+------------+
+10 rows in set (0.00 sec)
