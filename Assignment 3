@@ -72,3 +72,69 @@ mysql> select * from Project where Pyear='2015-01-01';
 1 row in set (0.00 sec)
 
 
+
+mysql> select dname from Dept natural join Employee ;
++-------+
+| dname |
++-------+
+| Comp  |
+| Comp  |
+| Comp  |
+| Comp  |
+| It    |
+| It    |
+| It    |
+| Entc  |
+| Entc  |
+| Entc  |
++-------+
+10 rows in set (0.00 sec)
+
+mysql> select dname from Dept natural join Employee where date(Employee.joindate) <= now();
++-------+
+| dname |
++-------+
+| Comp  |
+| Entc  |
+| Comp  |
+| It    |
+| Entc  |
+| It    |
+| Comp  |
+| Entc  |
+| It    |
+| Comp  |
++-------+
+10 rows in set (0.00 sec)
+
+mysql> select dname from Dept natural join Employee where date(Employee.joindate) <='2015-01-01';
++-------+
+| dname |
++-------+
+| Comp  |
+| Entc  |
+| It    |
+| Entc  |
+| It    |
+| Comp  |
++-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Dept natural join Employee where date(Employee.joindate) <='2015-01-01';
++---------+-------+-----------+--------+----------+-------+-------------+--------+------------+
+| Dept_id | dname | dlocation | Emp_id | fname    | lname | designation | salary | joindate   |
++---------+-------+-----------+--------+----------+-------+-------------+--------+------------+
+|       1 | Comp  | Loc1      |      1 | Kshitija | XYX   | HR          |  50000 | 2015-01-01 |
+|       3 | Entc  | Loc3      |      2 | Hema     | ABC   | Developer   |  20000 | 2014-01-01 |
+|       2 | It    | Loc2      |      4 | Piyusha  | MNP   | Manager     |  35000 | 2010-01-01 |
+|       3 | Entc  | Loc3      |      5 | Amar     | NMG   | Tester      |  35000 | 2011-01-01 |
+|       2 | It    | Loc2      |      9 | Nikita   | LJK   | Intern      |  15000 | 2006-01-01 |
+|       1 | Comp  | Loc1      |     10 | Sam      | MNH   | Developer   |  35000 | 2003-01-01 |
++---------+-------+-----------+--------+----------+-------+-------------+--------+------------+
+6 rows in set (0.01 sec)
+
+mysql> 
+
+
+
+
