@@ -32,3 +32,43 @@ mysql> select fname, designation, dlocation, joindate from Employee inner join D
 | Sam      | Developer   | Loc1      | 2003-01-01 |
 +----------+-------------+-----------+------------+
 10 rows in set (0.00 sec)
+
+
+
+
+
+ select * from Project;
++---------+---------+-----------+--------+
+| Proj_id | Dept_id | Plocation | Pcost  |
++---------+---------+-----------+--------+
+|       1 |       1 | Pune      | 110000 |
+|       2 |       2 | Mumbai    | 560000 |
+|       3 |       1 | Chennai   | 240000 |
++---------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> alter table Project add Pyear date;
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update Project set Pyear='2015-01-01' where Proj_id='1';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Project set Pyear='2010-01-01' where Proj_id='2';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Project set Pyear='2011-01-01' where Proj_id='3';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Project where Pyear='2015-01-01';
++---------+---------+-----------+--------+------------+
+| Proj_id | Dept_id | Plocation | Pcost  | Pyear      |
++---------+---------+-----------+--------+------------+
+|       1 |       1 | Pune      | 110000 | 2015-01-01 |
++---------+---------+-----------+--------+------------+
+1 row in set (0.00 sec)
+
+
