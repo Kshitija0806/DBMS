@@ -138,3 +138,251 @@ mysql>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+student@student-OptiPlex-3020:~$ mysql -h 10.10.10.216 -u t31131 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 276
+Server version: 5.5.43-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use t31131db;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show table student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'student' at line 1
+mysql> show student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'student' at line 1
+mysql> show tables;
++--------------------+
+| Tables_in_t31131db |
++--------------------+
+| Authors            |
+| Books              |
+| Dept               |
+| Employee           |
+| Person             |
+| Personal_info      |
+| Project            |
+| Student            |
+| display            |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> show employee
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'employee' at line 1
+mysql> selct * from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'selct * from employee' at line 1
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 't31131db.employee' doesn't exist
+mysql> select * from Employee;
++--------+---------+----------+-------+-------------+--------+------------+
+| Emp_id | Dept_id | fname    | lname | designation | salary | joindate   |
++--------+---------+----------+-------+-------------+--------+------------+
+|      1 |       1 | Kshitija | XYX   | HR          |  50000 | 2015-01-01 |
+|      2 |       3 | Hema     | ABC   | Developer   |  20000 | 2014-01-01 |
+|      3 |       1 | Girija   | PQR   | Intern      |  10000 | 2019-01-01 |
+|      4 |       2 | Piyusha  | MNP   | Manager     |  35000 | 2010-01-01 |
+|      5 |       3 | Amar     | NMG   | Tester      |  35000 | 2011-01-01 |
+|      6 |       2 | Ram      | AHK   | Developer   |  25000 | 2020-01-01 |
+|      7 |       1 | Harry    | AGK   | Intern      |  45000 | 2021-01-01 |
+|      8 |       3 | Purva    | UHK   | Intern      |  45000 | 2016-01-01 |
+|      9 |       2 | Nikita   | LJK   | Intern      |  15000 | 2006-01-01 |
+|     10 |       1 | Sam      | MNH   | Developer   |  35000 | 2003-01-01 |
++--------+---------+----------+-------+-------------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from Dept;
++---------+-------+-----------+
+| Dept_id | dname | dlocation |
++---------+-------+-----------+
+|       1 | Comp  | Loc1      |
+|       2 | It    | Loc2      |
+|       3 | Entc  | Loc3      |
++---------+-------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Project;
++---------+---------+-----------+--------+------------+
+| Proj_id | Dept_id | Plocation | Pcost  | Pyear      |
++---------+---------+-----------+--------+------------+
+|       1 |       1 | Pune      | 110000 | 2015-01-01 |
+|       2 |       2 | Mumbai    | 560000 | 2010-01-01 |
+|       3 |       1 | Chennai   | 240000 | 2011-01-01 |
++---------+---------+-----------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Employee natural join Dept;
++---------+--------+----------+-------+-------------+--------+------------+-------+-----------+
+| Dept_id | Emp_id | fname    | lname | designation | salary | joindate   | dname | dlocation |
++---------+--------+----------+-------+-------------+--------+------------+-------+-----------+
+|       1 |      1 | Kshitija | XYX   | HR          |  50000 | 2015-01-01 | Comp  | Loc1      |
+|       3 |      2 | Hema     | ABC   | Developer   |  20000 | 2014-01-01 | Entc  | Loc3      |
+|       1 |      3 | Girija   | PQR   | Intern      |  10000 | 2019-01-01 | Comp  | Loc1      |
+|       2 |      4 | Piyusha  | MNP   | Manager     |  35000 | 2010-01-01 | It    | Loc2      |
+|       3 |      5 | Amar     | NMG   | Tester      |  35000 | 2011-01-01 | Entc  | Loc3      |
+|       2 |      6 | Ram      | AHK   | Developer   |  25000 | 2020-01-01 | It    | Loc2      |
+|       1 |      7 | Harry    | AGK   | Intern      |  45000 | 2021-01-01 | Comp  | Loc1      |
+|       3 |      8 | Purva    | UHK   | Intern      |  45000 | 2016-01-01 | Entc  | Loc3      |
+|       2 |      9 | Nikita   | LJK   | Intern      |  15000 | 2006-01-01 | It    | Loc2      |
+|       1 |     10 | Sam      | MNH   | Developer   |  35000 | 2003-01-01 | Comp  | Loc1      |
++---------+--------+----------+-------+-------------+--------+------------+-------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select fname, designation, dlocation, joindate from Employee natural join Dept;
++----------+-------------+-----------+------------+
+| fname    | designation | dlocation | joindate   |
++----------+-------------+-----------+------------+
+| Kshitija | HR          | Loc1      | 2015-01-01 |
+| Hema     | Developer   | Loc3      | 2014-01-01 |
+| Girija   | Intern      | Loc1      | 2019-01-01 |
+| Piyusha  | Manager     | Loc2      | 2010-01-01 |
+| Amar     | Tester      | Loc3      | 2011-01-01 |
+| Ram      | Developer   | Loc2      | 2020-01-01 |
+| Harry    | Intern      | Loc1      | 2021-01-01 |
+| Purva    | Intern      | Loc3      | 2016-01-01 |
+| Nikita   | Intern      | Loc2      | 2006-01-01 |
+| Sam      | Developer   | Loc1      | 2003-01-01 |
++----------+-------------+-----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select fname, designation, Proj_id, Pcost from Employee natural join Dept where Plocation!='Hyderabad';
+ERROR 1054 (42S22): Unknown column 'Proj_id' in 'field list'
+mysql> select fname, designation, Proj_id, Pcost from Employee natural join Project where Plocation!='Hyderabad';
++----------+-------------+---------+--------+
+| fname    | designation | Proj_id | Pcost  |
++----------+-------------+---------+--------+
+| Kshitija | HR          |       1 | 110000 |
+| Kshitija | HR          |       3 | 240000 |
+| Girija   | Intern      |       1 | 110000 |
+| Girija   | Intern      |       3 | 240000 |
+| Piyusha  | Manager     |       2 | 560000 |
+| Ram      | Developer   |       2 | 560000 |
+| Harry    | Intern      |       1 | 110000 |
+| Harry    | Intern      |       3 | 240000 |
+| Nikita   | Intern      |       2 | 560000 |
+| Sam      | Developer   |       1 | 110000 |
+| Sam      | Developer   |       3 | 240000 |
++----------+-------------+---------+--------+
+11 rows in set (0.00 sec)
+
+mysql> select dname, fname, designation from Employee natural join Dept, Project where Pyear='2020';
+Empty set, 1 warning (0.00 sec)
+
+mysql> select dname, fname, designation from Employee natural join Dept, Project;
++-------+----------+-------------+
+| dname | fname    | designation |
++-------+----------+-------------+
+| Comp  | Kshitija | HR          |
+| Comp  | Kshitija | HR          |
+| Comp  | Kshitija | HR          |
+| Entc  | Hema     | Developer   |
+| Entc  | Hema     | Developer   |
+| Entc  | Hema     | Developer   |
+| Comp  | Girija   | Intern      |
+| Comp  | Girija   | Intern      |
+| Comp  | Girija   | Intern      |
+| It    | Piyusha  | Manager     |
+| It    | Piyusha  | Manager     |
+| It    | Piyusha  | Manager     |
+| Entc  | Amar     | Tester      |
+| Entc  | Amar     | Tester      |
+| Entc  | Amar     | Tester      |
+| It    | Ram      | Developer   |
+| It    | Ram      | Developer   |
+| It    | Ram      | Developer   |
+| Comp  | Harry    | Intern      |
+| Comp  | Harry    | Intern      |
+| Comp  | Harry    | Intern      |
+| Entc  | Purva    | Intern      |
+| Entc  | Purva    | Intern      |
+| Entc  | Purva    | Intern      |
+| It    | Nikita   | Intern      |
+| It    | Nikita   | Intern      |
+| It    | Nikita   | Intern      |
+| Comp  | Sam      | Developer   |
+| Comp  | Sam      | Developer   |
+| Comp  | Sam      | Developer   |
++-------+----------+-------------+
+30 rows in set (0.00 sec)
+
+mysql> select fname, designation, Proj_id, Pcost from Employee natural join Project where Plocation!='Hyderabad';
++----------+-------------+---------+--------+
+| fname    | designation | Proj_id | Pcost  |
++----------+-------------+---------+--------+
+| Kshitija | HR          |       1 | 110000 |
+| Kshitija | HR          |       3 | 240000 |
+| Girija   | Intern      |       1 | 110000 |
+| Girija   | Intern      |       3 | 240000 |
+| Piyusha  | Manager     |       2 | 560000 |
+| Ram      | Developer   |       2 | 560000 |
+| Harry    | Intern      |       1 | 110000 |
+| Harry    | Intern      |       3 | 240000 |
+| Nikita   | Intern      |       2 | 560000 |
+| Sam      | Developer   |       1 | 110000 |
+| Sam      | Developer   |       3 | 240000 |
++----------+-------------+---------+--------+
+11 rows in set (0.00 sec)
+
+mysql> select fname, designation, Proj_id, Pcost , Plocation from Employee natural join Project where Plocation!='Hyderabad';
++----------+-------------+---------+--------+-----------+
+| fname    | designation | Proj_id | Pcost  | Plocation |
++----------+-------------+---------+--------+-----------+
+| Kshitija | HR          |       1 | 110000 | Pune      |
+| Kshitija | HR          |       3 | 240000 | Chennai   |
+| Girija   | Intern      |       1 | 110000 | Pune      |
+| Girija   | Intern      |       3 | 240000 | Chennai   |
+| Piyusha  | Manager     |       2 | 560000 | Mumbai    |
+| Ram      | Developer   |       2 | 560000 | Mumbai    |
+| Harry    | Intern      |       1 | 110000 | Pune      |
+| Harry    | Intern      |       3 | 240000 | Chennai   |
+| Nikita   | Intern      |       2 | 560000 | Mumbai    |
+| Sam      | Developer   |       1 | 110000 | Pune      |
+| Sam      | Developer   |       3 | 240000 | Chennai   |
++----------+-------------+---------+--------+-----------+
+11 rows in set (0.01 sec)
+
+mysql> select designation, Dept_id, Pcost  from Employee natural join Project where Pcost > 30000;
++-------------+---------+--------+
+| designation | Dept_id | Pcost  |
++-------------+---------+--------+
+| HR          |       1 | 110000 |
+| HR          |       1 | 240000 |
+| Intern      |       1 | 110000 |
+| Intern      |       1 | 240000 |
+| Manager     |       2 | 560000 |
+| Developer   |       2 | 560000 |
+| Intern      |       1 | 110000 |
+| Intern      |       1 | 240000 |
+| Intern      |       2 | 560000 |
+| Developer   |       1 | 110000 |
+| Developer   |       1 | 240000 |
++-------------+---------+--------+
+11 rows in set (0.01 sec)
+
+
+
+
+
+
