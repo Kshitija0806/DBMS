@@ -384,5 +384,48 @@ mysql> select designation, Dept_id, Pcost  from Employee natural join Project wh
 
 
 
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 't31131db.employee' doesn't exist
+mysql> select * from Employee;
++--------+---------+----------+-------+-------------+--------+------------+--------+
+| Emp_id | Dept_id | fname    | lname | designation | salary | joindate   | no_emp |
++--------+---------+----------+-------+-------------+--------+------------+--------+
+|      1 |       1 | Kshitija | XYX   | HR          |  50000 | 2015-01-01 |   NULL |
+|      2 |       3 | Hema     | ABC   | Developer   |  20000 | 2014-01-01 |   NULL |
+|      3 |       1 | Girija   | PQR   | Intern      |  10000 | 2019-01-01 |   NULL |
+|      4 |       2 | Piyusha  | MNP   | Manager     |  35000 | 2010-01-01 |   NULL |
+|      5 |       3 | Amar     | NMG   | Tester      |  35000 | 2011-01-01 |   NULL |
+|      6 |       2 | Ram      | AHK   | Developer   |  25000 | 2020-01-01 |   NULL |
+|      7 |       1 | Harry    | AGK   | Intern      |  45000 | 2021-01-01 |   NULL |
+|      8 |       3 | Purva    | UHK   | Intern      |  45000 | 2016-01-01 |   NULL |
+|      9 |       2 | Nikita   | LJK   | Intern      |  15000 | 2006-01-01 |   NULL |
+|     10 |       1 | Sam      | MNH   | Developer   |  35000 | 2003-01-01 |   NULL |
+|   NULL |    NULL | NULL     | NULL  | NULL        |   NULL | NULL       |     10 |
++--------+---------+----------+-------+-------------+--------+------------+--------+
+11 rows in set (0.00 sec)
+
+mysql> insert into Employee(no_emp) values(10) where Emp_id=1 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where Emp_id=1' at line 1
+mysql> select Emp_id, fname, designation, dlocation from Employee natural join Dept;
++--------+----------+-------------+-----------+
+| Emp_id | fname    | designation | dlocation |
++--------+----------+-------------+-----------+
+|      1 | Kshitija | HR          | Loc1      |
+|      3 | Girija   | Intern      | Loc1      |
+|      7 | Harry    | Intern      | Loc1      |
+|     10 | Sam      | Developer   | Loc1      |
+|      4 | Piyusha  | Manager     | Loc2      |
+|      6 | Ram      | Developer   | Loc2      |
+|      9 | Nikita   | Intern      | Loc2      |
+|      2 | Hema     | Developer   | Loc3      |
+|      5 | Amar     | Tester      | Loc3      |
+|      8 | Purva    | Intern      | Loc3      |
++--------+----------+-------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> 
+
+
+
 
 
