@@ -1,3 +1,4 @@
+//Assignment5:
 create function Stud_grades(rno int)
 Returns varchar(20)
 DETERMINISTIC
@@ -15,3 +16,15 @@ Declare rmarks int;
 	Return grades;
 end;
 // 
+
+
+//Practice problem:
+Function for addition of two numbers
+create function addition(a int,b int)
+Returns int
+Begin
+Declare c int;
+set c=a+b;
+return c;
+end;
+//
