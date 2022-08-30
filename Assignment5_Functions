@@ -1,0 +1,17 @@
+create function Stud_grades(rno int)
+Returns varchar(20)
+DETERMINISTIC
+Begin
+Declare grades varchar(20);
+Declare rmarks int;
+	select marks into rmarks from Stud where Roll_no=rno;
+
+	if(rmarks > 75) then set grades="Distinction";
+	elseif(rmarks >=60 && rmarks < 75) then set grades="First class";
+	elseif (rmarks >=50 && rmarks< 60) then set grades="Second class";
+	else set grades="Fail";
+	end if;
+
+	Return grades;
+end;
+// 
