@@ -1,4 +1,16 @@
 //Assignment5:
+
+//Stud table:
++---------+-------+
+| Roll_no | marks |
++---------+-------+
+|       1 |    66 |
+|       2 |    44 |
+|       3 |    88 |
+|       4 |    57 |
++---------+-------+
+
+//Function to give grades by excepting the marks:
 create function Stud_grades(rno int)
 Returns varchar(20)
 DETERMINISTIC
@@ -16,6 +28,18 @@ Declare rmarks int;
 	Return grades;
 end;
 // 
+//Call for the function:
+ select Roll_no,marks,Stud_grades(Roll_no) as grades from Stud;
++---------+-------+--------------+
+| Roll_no | marks | grades       |
++---------+-------+--------------+
+|       1 |    66 | First class  |
+|       2 |    44 | Fail         |
+|       3 |    88 | Distinction  |
+|       4 |    57 | Second class |
++---------+-------+--------------+
+4 rows in set (0.01 sec)
+
 
 
 //Practice problem:
