@@ -1,4 +1,4 @@
-//Assignment5:
+//Assignment5: Extra examples
 
 //Stud table:
 +---------+-------+
@@ -52,3 +52,68 @@ set c=a+b;
 return c;
 end;
 //
+
+//Assignment 5:
+
+create table Stud_marks(name varchar(20), total_marks int);
+create table Result(Roll_no int, name vrchar(20), class varchar(20));
+
+
+
+mysql> insert into Stud_marks
+    -> values("Kshitija",1200);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Stud_marks values("Akanksha",950);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Stud_marks values("Piyusha",850);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Result values(1,"Kshitija",NULL);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Result values(2,"Akanksha",NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Result values(3,"Piyusha",NULL);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> delimiter //
+
+create procedure proc_Grade(iname varchar(20))
+    -> begin
+    -> declare a int;
+    -> select total_marks into a from Stud_marks where name=iname;
+    -> if(a>=990 and a<=1500) then
+    -> update Result set class="distinction" where Result.name=iname;
+    -> elseif(a>=899 and a<990) then
+    -> update Result set class="first class" where Result.name=iname;
+    -> elseif(a>=825 and a<899) then
+    -> update Result set class="Higher second class" where Result.name=iname;
+    -> end if;
+    -> end;
+    -> //
+mysql> delimiter ;
+mysql> call proc_Grade("Kshitija");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> call proc_Grade("Akanksha");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call proc_Grade("Piyusha");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> selct * from Result;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'selct * from Result' at line 1
+mysql> select * from Result;
++---------+----------+---------------------+
+| Roll_no | name     | class               |
++---------+----------+---------------------+
+|       1 | Kshitija | distinction         |
+|       2 | Akanksha | first class         |
+|       3 | Piyusha  | Higher second class |
++---------+----------+---------------------+
+3 rows in set (0.00 sec)
+
+
