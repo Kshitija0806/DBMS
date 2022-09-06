@@ -1,0 +1,52 @@
+/*Step 1: Declare cursor
+Syntax to declare a cursor
+declare cursor_name CURSOR FOR SELECT_statement;*/
+
+/*Step 2: Open statement
+Syntax to open a cursor
+OPEN cursor_name
+*/
+
+/*Step 3: LOOP statement
+Syntax for loop statement
+[label_name]:LOOP
+statement_list
+END LOOP [label_name]
+*/ 
+
+/*Step 4: Fetch statement
+Syntax for fetch statement
+FETCH cursor_name into variables list
+*/
+
+/*Step 5: CLOSE statement
+Syntax for close
+CLOSE cursor_name*/
+
+/*NOT FOUND handler
+Syntax for NOT FOUND handler
+DECLARE CONTINUE HANDLER
+FOR NOT FOUND
+SET exit_loop=TRUE*/
+
+/*CURSOR EXAMPLE1*/
+
+delimiter //
+create procedure cursor_proc1()
+begin
+declare tmarks int;
+declare name varchar(20);
+declare end_loop boolean;
+declare c1 cursor for select name,total_marks from Stud_marks;
+declare continue handler for not found set end_loop=TRUE;
+open c1;
+L1:LOOP
+Fetch c1 into name,tmarks;
+select name,tmarks;
+if end_loop THEN
+close c1;
+leave L1;
+END if;
+END LOOP L1;
+END;
+//
