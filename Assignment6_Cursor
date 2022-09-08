@@ -127,3 +127,82 @@ end LOOP emp_loop;
 end;
 //
 
+
+
+/*ASSIGNMENT 6 */
+
+create table O_rollcall(rno int,name varchar(20),addr varchar(20));
+
+insert into O_rollcall
+values(1,"Kshitija","Akola");
+
+insert into O_rollcall
+values(2,"Akanksha","Nagpur");
+
+insert into O_rollcall
+values(3,"Piyusha","Amaravati");
+
+create table N_rollcall(rno int,name varchar(20),
+addr varchar(30));
+
+/*Parameterized cursor*/
+CREATE PROCEDURE newcurr(IN rno1 int(3))
+BEGIN
+DECLARE c1 CURSOR FOR SELECT rno FROM O_rollcall where rno=rno1;
+OPEN c1;
+FETCH c1 INTO rno1;
+If not exists(select * from N_rollcall where rno=rno1) then
+insert into N_rollcall select * from O_rollcall where rno=rno1;
+End If;
+CLOSE c1;
+END
+//
+
+Call newcurr(2);
+
+/*OUTPUT*/
+mysql> select * from N_rollcall;//
++------+----------+--------+
+| rno  | name     | addr   |
++------+----------+--------+
+|    2 | Akanksha | Nagpur |
++------+----------+--------+
+
+
+/*PROCEDURE*/
+CREATE PROCEDURE newcurr1(IN rno1 int(3))
+BEGIN
+DECLARE rno2 int(3);
+DECLARE exit_loop BOOLEAN;
+DECLARE c1 CURSOR FOR SELECT rno FROM O_rollcall where rno>rno1;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET exit_loop = TRUE;
+OPEN c1;
+emp_loop: LOOP
+FETCH c1 INTO rno2;
+If not exists(select * from N_rollcall where rno=rno2) then
+insert into N_rollcall select * from O_rollcall where rno=rno2;
+End If;
+IF exit_loop THEN
+CLOSE c1;
+LEAVE emp_loop;
+END IF;
+END LOOP emp_loop;
+END;
+//
+
+Call newcurr1(1)//
+
+/*OUTPUT*/
+mysql> select * from N_rollcall;//
++------+----------+-----------+
+| rno  | name     | addr      |
++------+----------+-----------+
+|    2 | Akanksha | Nagpur    |
+|    3 | Piyusha  | Amaravati |
++------+----------+-----------+
+
+
+/*
+To copy select columns from one table to another
+insert into new_table(col1,col2) select col1,col2 from old_table;
+*/
