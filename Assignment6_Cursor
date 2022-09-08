@@ -29,6 +29,8 @@ DECLARE CONTINUE HANDLER
 FOR NOT FOUND
 SET exit_loop=TRUE*/
 
+
+
 /*CURSOR EXAMPLE1*/
 
 delimiter //
@@ -50,3 +52,78 @@ END if;
 END LOOP L1;
 END;
 //
+
+
+/*CURSOR EXAMPLE 2*/
+create procedure sal_cur()
+begin
+declare eid int;
+declare sal int;
+declare end_loop boolean; 
+declare c2 cursor for select emp_id, salary from Employee; 
+declare continue handler for not found set end_loop=true;
+
+open c2;
+emp_loop: LOOP
+Fetch c2 into eid, sal;
+select eid,sal;
+
+if end_loop then
+close c2;
+leave emp_loop;
+end if;
+end loop emp_loop;
+end;
+//
+
+
+/*CURSOR EXAMPLE 3*/
+create procedure sal_update()
+begin
+declare eid int;
+declare sal int;
+declare end_loop boolean;
+declare c3 cursor for select emp_id, salary from emp;
+declare continue handler for not found set end_loop=true;
+
+open c3;
+emp_loop:LOOP
+fetch c3 into eid,sal;
+
+if sal>4000 then
+update emp set salary=salary+5000 where eid=emp_id;
+else
+update emp set salary=salary+1000 where eid=emp_id;
+end if;
+
+if end_loop then
+close c3;
+leave emp_loop;
+end if;
+end LOOP emp_loop;
+end;
+//
+
+
+/*CURSOR EXAMPLE 4*/
+CREATE procedure insert_val()
+begin
+declare eid int;
+delare sal int;
+declare end_loop boolean;
+declare c4 cursor for select emp_id, salary from Employee;
+declare continue handler for not found set end_loop=true;
+
+open c4;
+emp_loop:LOOP
+fetch c4 into eid,sal;
+insert into emp1 values(eid,sal);
+
+if end_loop then
+close c4;
+leave emp_loop;
+end if;
+end LOOP emp_loop;
+end;
+//
+
