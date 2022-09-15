@@ -1,0 +1,108 @@
+/*Trigger practice*/
+
+//Creating a table library_table
+
+create table library_table(
+id int primary key,
+title varchar(20),
+author varchar(20),
+price int
+);
+
+
+//Inserting into library_table
+
+insert into library_table
+values(101,"DBMS","ABC",200);
+
+insert into library_table
+values(104,"TOC","MNO",500);
+
+insert into library_table
+values(102,"CNS","PQR",300);
+
+
+
+
+create table audit_table(
+id int not NULL,
+title varchar(20) not NULL,
+author varchar(20) not NULL,
+price int,
+action varchar(20) not NULL,
+changed_at timestamp default now()
+);
+
+//In the audit table we will store the earlier records with the new records 
+//and the operation performed on it and time on it is performed.
+
+//Defining trigger for deletion
+
+delimiter &&
+
+create trigger delete_trig after delete
+on library_table
+for each row
+insert into audit_table
+values(OLD.id,OLD.title,OLD.author,OLD.price,"Deleted",now());
+&&
+
+
+//Defining trigger for updation
+
+create trigger update_trig before update
+on library_table
+for each row
+insert into audit_table
+values(OLD.id,OLD.title,OLD.author,OLD.price,"Updated",now());
+&&
+
+
+//deleting a record to fire trigger
+delete from library_table where id=104;
+
++-----+-------+--------+-------+---------+---------------------+
+| id  | title | author | price | action  | changed_at          |
++-----+-------+--------+-------+---------+---------------------+
+| 104 | TOC   | MNO    |   500 | Deleted | 2022-09-15 09:28:31 |
++-----+-------+--------+-------+---------+---------------------+
+
+
+//Updating a record to fire trigger
+update library_table set id=106 where id="101";
+
++-----+-------+--------+-------+---------+---------------------+
+| id  | title | author | price | action  | changed_at          |
++-----+-------+--------+-------+---------+---------------------+
+| 104 | TOC   | MNO    |   500 | Deleted | 2022-09-15 09:28:31 |
+| 101 | DBMS  | ABC    |   200 | Updated | 2022-09-15 09:33:09 |
++-----+-------+--------+-------+---------+---------------------+
+
+
+
+/* ******************************Trigger Assignment 7******************************* */
+Library table(Book_id,edition,no_of_copies)
+Library_audit(Previous columns,Date of modification ,Type of operation, user how made the change)
+*/
+
+create table Books_table(Book_id int, Title varchar(20), Edition int, No_of_copies int);
+create table Book_audit(Book_id int,Title varchar(20), Edition int, No_of_copies int, Date_of_modification timestamp default now(),Type_of_operation varchar(20),User_name VARCHAR(20));
+
+insert into Books_table
+values(101,"DBMS",5,100),
+(105,"CNS",3,50),
+(103,"TOC",2,70);
+
+
+//Creating trigger for delete
+
+delimiter &&
+create trigger del_trig before delete
+on Books_table
+for each row
+insert into Book_audit
+values(OLD.Book_id,OLD.Title,OLD.Edition,OLD.No_of_copies,now(),"Before Deletion",CURRENT_USER());
+&&
+
+
+
